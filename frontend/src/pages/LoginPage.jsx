@@ -1,13 +1,15 @@
-import LoginForm from '../components/LoginForm'
+import LoginForm from '../components/LoginForm';
+import { Container } from 'react-bootstrap';
+
 
 function LoginPage() {
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100">
-      <div className="w-100" style={{ minWidth: '400px' }}>
+    <Container className="d-flex justify-content-center align-items-center vh-100">
+      <Container className="w-100" style={{ maxWidth: '400px' }}>
         <LoginForm />
-      </div>
-    </div>
+      </Container>
+    </Container>
   );
 }
 
