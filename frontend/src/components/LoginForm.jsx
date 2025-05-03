@@ -1,111 +1,97 @@
+import { useState, useRef, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { Form, FloatingLabel, Button, Container } from 'react-bootstrap';
+import { Form, FloatingLabel, Button, Spinner } from 'react-bootstrap';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
-import { setCredentials } from '../store/slices/authSlice';
-
+import AuthContext from '../context/AuthContext';
 
 function LoginForm() {
-
+  const [authError, setAuthError] = useState(false);
+  const inputRef = useRef(null);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const auth = useContext(AuthContext);
 
-  // const validationSchema = Yup.object({
-  //   username: Yup.string()
-  //     .required('required'),
-  //   password: Yup.string()
-  //     // .min(5, 'min 5')
-  //     .required('required'),
-  // });
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
-  const { errors, touched, isSubmitting, handleSubmit, getFieldProps } = useFormik({
-    initialValues: {
-      username: '',
-      password: '',
-    },
-    // validationSchema,
-    onSubmit: async (values, { setSubmitting, setErrors }) => {
-      try {
-        const response = await axios.post('/api/v1/login', values);
-
-        localStorage.setItem('jwtToken', response.data.token);
-
-        dispatch(setCredentials({
-          user: response.data.user,
-          token: response.data.token,
-        }))
-
-        navigate('/');        
-      } catch (error) {
-        if (error.response?.status === 401) {
-          setErrors({ 
-            username: ' ',
-            password: 'Invalid username or password',
-          });
-        } else {
-          setErrors({ 
-            username: ' ',
-            password: 'Network error. Please try again.',
-          });
-        }  
-      } finally {
-        setSubmitting(false);
-      }
+  const formik = useFormik({
+    initialValues: { login: '', password: '' },
+    onSubmit: (values) => {
+      const { login, password } = values;
+      axios.post('/api/v1/login', {
+        username: login,
+        password: password,
+      })
+        .then((response) => {
+          const { token: jwtToken, username: login } = response.data;
+          auth.logIn(jwtToken, login);
+          navigate('/');
+        })
+        .catch((error) => {
+          setAuthError(true);
+          if (error.isAxiosError && error.response.status === 401) {
+            console.log('error 401!');
+            inputRef.current.select();
+          }
+          else {
+            throw error;
+          }
+        })
+        .finally(() => {
+          formik.setSubmitting(false);
+        });
     },
   });
 
   return (
     <>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={formik.handleSubmit}>
         <h2 className="text-center mb-4">Войти</h2>
-        {/* {error && <Alert variant="danger">{error}</Alert>} */}
+
         <FloatingLabel
-          controlId='username'
-          label='Ваш ник'
-          className='mb-3'
+          controlId="login"
+          label="Ваш ник"
+          className="mb-3"
         >
-          <Form.Control 
-            autoFocus
-            isInvalid={touched.username && !!errors.username}
-            autoComplete="username"
-            {...getFieldProps('username')} 
-            type="text" 
-            placeholder="" />
+          <Form.Control
+            ref={inputRef}
+            className={authError ? 'is-invalid' : ''}
+            type="text"
+            name="login"
+            id="login"
+            onChange={formik.handleChange}
+            value={formik.values.login}
+          />
         </FloatingLabel>
 
         <FloatingLabel
-          controlId='password'
-          label='Пароль'
-          className='mb-3'
+          controlId="password"
+          label="Пароль"
+          className="mb-3"
         >
-          <Form.Control 
-            isInvalid={touched.password && !!errors.password}
-            autoComplete="current-password"
-            {...getFieldProps('password')} 
-            type="password" 
-            placeholder="" />
-            
-          {/* <Form.Control.Feedback type="invalid">
-            {errors.password}
-          </Form.Control.Feedback> */}
+          <Form.Control
+            className={authError ? 'is-invalid' : ''}
+            type="password"
+            name="password"
+            id="password"
+            onChange={formik.handleChange}
+            value={formik.values.password}
+          />
 
-          {errors && (
-            <div className="invalid-tooltip">
-              {errors.password}
-            </div>
-          )}
+          <div className="invalid-tooltip">
+            {authError ? 'Неверные имя пользователя или пароль' : '\u00A0'}
+          </div>
 
         </FloatingLabel>
 
-        <Button 
-          variant='primary' 
-          type="submit" 
-          disabled={isSubmitting}
+        <Button
+          variant="primary"
+          type="submit"
+          disabled={formik.isSubmitting}
           className="w-100"
         >
-          Войти
+          {formik.isSubmitting ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : 'Войти'}
         </Button>
       </Form>
     </>

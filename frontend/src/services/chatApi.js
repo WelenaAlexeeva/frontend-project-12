@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const chatApi = createApi({
   reducerPath: 'chatApi',
   tagTypes: ['Channel', 'Message'],
-  baseQuery: fetchBaseQuery({ 
+  baseQuery: fetchBaseQuery({
     baseUrl: '/api/v1',
     prepareHeaders: (headers) => {
       const token = localStorage.getItem('jwtToken');
@@ -14,13 +14,13 @@ export const chatApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    // addNewUser: builder.mutation({
-    //   query: (newUser) => ({
-    //     url: 'signup',
-    //     method: 'POST',
-    //     body: newUser,
-    //   })
-    // }),
+    addNewUser: builder.mutation({
+      query: (newUser) => ({
+        url: 'signup',
+        method: 'POST',
+        body: newUser,
+      }),
+    }),
     getChannels: builder.query({
       query: () => 'channels',
       providesTags: ['Channel'],
@@ -72,7 +72,7 @@ export const chatApi = createApi({
     //   }),
     //   invalidatesTags: ['Message'],
     // }),
-  })
+  }),
 });
 
 export const {

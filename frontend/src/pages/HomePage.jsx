@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
 import { useGetChannelsQuery, useGetMessagesQuery } from '../services/chatApi';
 import {
   Container,
@@ -13,10 +14,14 @@ import {
   FormControl,
 } from 'react-bootstrap';
 
-
-
 function HomePage() {
   const navigate = useNavigate();
+  const auth = useContext(AuthContext);
+
+  const logOut = () => {
+    auth.logOut();
+    navigate('/login');
+  };
 
   const token = localStorage.getItem('jwtToken');
 
@@ -26,13 +31,11 @@ function HomePage() {
   console.log(channels);
   console.log(messages);
 
-
   useEffect(() => {
     if (!token) {
       navigate('/login', { replace: true });
       return;
     }
-
   }, [token, navigate]);
 
   return (
@@ -43,14 +46,19 @@ function HomePage() {
           <Navbar className="shadow-sm navbar-light bg-white">
             <Container>
               <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
-              <Button variant="primary">Выйти</Button>
+              <Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="ms-auto">
+                  {auth.loggedIn && (<Button variant="primary" onClick={logOut}>Выйти</Button>)}
+                </Nav>
+              </Navbar.Collapse>
             </Container>
           </Navbar>
 
           {/* Main Content */}
           <Container className="my-4 overflow-hidden rounded shadow h-100">
             <Row className="h-100 bg-white flex-md-row">
-              
+
               {/* Channels Sidebar */}
               <Col xs={12} md={2} className="border-end px-0 bg-light d-flex flex-column h-100">
                 <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
@@ -69,19 +77,20 @@ function HomePage() {
                     <span className="visually-hidden">+</span>
                   </Button>
                 </div>
-              {/* Channels  */}
-              <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto">
-                {channels?.map((channel) => (
-                  <li key={channel.id} className="nav-item w-100">
-                    <Button 
-                      variant={channel.name === 'general' ? 'secondary' : 'light'} 
-                      className="w-100 rounded-0 text-start"
-                    >
-                      <span className="me-1">#</span>{channel.name}
-                    </Button>
-                  </li>
-                ))}
-              </ul>
+                {/* Channels  */}
+                <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto">
+                  {channels?.map((channel) => (
+                    <li key={channel.id} className="nav-item w-100">
+                      <Button
+                        variant={channel.name === 'general' ? 'secondary' : 'light'}
+                        className="w-100 rounded-0 text-start"
+                      >
+                        <span className="me-1">#</span>
+                        {channel.name}
+                      </Button>
+                    </li>
+                  ))}
+                </ul>
               </Col>
 
               {/* Chat Area */}
@@ -99,7 +108,9 @@ function HomePage() {
                   <div id="messages-box" className="chat-messages overflow-auto px-5 flex-grow-1">
                     {messages?.map((message) => (
                       <div key={message.id} className="text-break mb-2">
-                        <b>{message.username}</b>: {message.body}
+                        <b>{message.username}</b>
+                        :
+                        {message.body}
                       </div>
                     ))}
                   </div>
@@ -140,8 +151,6 @@ function HomePage() {
       <div className="Toastify"></div>
     </div>
   );
-
-
 }
 
 export default HomePage;
