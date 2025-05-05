@@ -59,7 +59,6 @@ function LoginForm() {
             className={authError ? 'is-invalid' : ''}
             type="text"
             name="login"
-            id="login"
             onChange={formik.handleChange}
             value={formik.values.login}
           />
@@ -74,7 +73,6 @@ function LoginForm() {
             className={authError ? 'is-invalid' : ''}
             type="password"
             name="password"
-            id="password"
             onChange={formik.handleChange}
             value={formik.values.password}
           />

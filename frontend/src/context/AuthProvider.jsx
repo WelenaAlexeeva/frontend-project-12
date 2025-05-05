@@ -5,6 +5,7 @@ const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('token'));
 
   const logIn = (token, username) => {
+    console.log('Текущее имя: ', username);
     localStorage.setItem('token', token);
     localStorage.setItem('username', username);
     setLoggedIn(true);

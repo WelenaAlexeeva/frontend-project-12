@@ -64,14 +64,14 @@ export const chatApi = createApi({
       // },
       providesTags: ['Message', 'Channel'],
     }),
-    // addMessage: builder.mutation({
-    //   query: (newMessage) => ({
-    //     url: 'messages',
-    //     method: 'POST',
-    //     body: newMessage,
-    //   }),
-    //   invalidatesTags: ['Message'],
-    // }),
+    addMessage: builder.mutation({
+      query: (newMessage) => ({
+        url: 'messages',
+        method: 'POST',
+        body: newMessage,
+      }),
+      invalidatesTags: ['Message'],
+    }),
   }),
 });
 
