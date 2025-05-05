@@ -25,6 +25,8 @@ function LoginForm() {
       })
         .then((response) => {
           const { token: jwtToken, username: login } = response.data;
+          localStorage.setItem('jwtToken', jwtToken);
+          localStorage.setItem('username', login);
           auth.logIn(jwtToken, login);
           navigate('/');
         })
