@@ -1,5 +1,6 @@
 import { openModal } from '../store/slices/modalSlice';
 import { useDispatch } from 'react-redux';
+import { Dropdown } from 'react-bootstrap';
 // import { useTranslation } from 'react-i18next';
 
 const ChannelControlsButton = ({ channel, activeChannel, handleClick }) => {
@@ -8,10 +9,12 @@ const ChannelControlsButton = ({ channel, activeChannel, handleClick }) => {
 
   const handleDel = () => {
     dispatch(openModal({ type: 'deleteChannelModal', channel: channel }));
+    console.log('del');
   };
 
   const handleEdit = () => {
     dispatch(openModal({ type: 'editChannelModal', channel: channel }));
+    console.log('ed');
   };
 
   if (channel.removable) {

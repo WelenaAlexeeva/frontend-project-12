@@ -8,6 +8,8 @@ import { useSelector } from 'react-redux';
 import { activeChannelSelector } from '../store/slices/activeChannelSlice';
 import MessageForm from '../components/MessageForm';
 import MessageItem from '../components/MessageItem';
+import selectModal from '../components/Modals/selectModal.js';
+import { typeSelector } from '../store/slices/modalSlice.js';
 
 function HomePage() {
   const navigate = useNavigate();
@@ -23,6 +25,8 @@ function HomePage() {
   };
 
   const token = localStorage.getItem('jwtToken');
+  const modalType = useSelector(typeSelector);
+  const Modal = selectModal[modalType];
 
   useEffect(() => {
     if (!token) {
@@ -98,6 +102,7 @@ function HomePage() {
 
       {/* Toastify Placeholder */}
       <div className="Toastify"></div>
+      {Modal ? <Modal /> : ''}
     </div>
   );
 }

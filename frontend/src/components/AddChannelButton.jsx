@@ -1,5 +1,4 @@
 import { Button } from 'react-bootstrap';
-import PropTypes from 'prop-types';
 
 const AddChannelButton = ({ onClick }) => (
   <Button variant="link" className="p-0 text-primary" onClick={onClick}>
@@ -16,9 +15,5 @@ const AddChannelButton = ({ onClick }) => (
     <span className="visually-hidden">+</span>
   </Button>
 );
-
-AddChannelButton.propTypes = {
-  onClick: PropTypes.func.isRequired,
-};
 
 export default AddChannelButton;

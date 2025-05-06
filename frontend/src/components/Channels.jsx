@@ -1,21 +1,18 @@
-import {
-  Col,
-} from 'react-bootstrap';
-
+import { Col } from 'react-bootstrap';
 import { useGetChannelsQuery } from '../services/chatApi';
 import { useSelector, useDispatch } from 'react-redux';
 import AddChannelButton from './AddChannelButton';
 import ChannelControlsButton from './ChannelControlsButton.jsx';
 import { setActiveChannel, activeChannelSelector } from '../store/slices/activeChannelSlice.js';
+import { openModal } from '../store/slices/modalSlice.js';
 
 const Channels = () => {
   const { data: channels } = useGetChannelsQuery();
-  const dispatch = useDispatch();
   const activeChannel = useSelector(activeChannelSelector);
+  const dispatch = useDispatch();
 
-  const handleAddChannel = () => {
-    // add
-    console.log('Добавить канал');
+  const handleOpenModal = () => {
+    dispatch(openModal({ type: 'addChannelModal' }));
   };
 
   const handleClick = (channel) => {
@@ -26,11 +23,11 @@ const Channels = () => {
     <Col xs={12} md={2} className="border-end px-0 bg-light d-flex flex-column h-100">
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
         <b>Каналы</b>
-        <AddChannelButton onClick={handleAddChannel} />
+        <AddChannelButton onClick={handleOpenModal} />
       </div>
 
       {/* Channels */}
-      <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto">
+      <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
         {channels?.map((channel) => {
           return (
             <li className="nav-item w-100" key={channel.id}>
