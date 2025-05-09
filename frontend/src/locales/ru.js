@@ -88,7 +88,6 @@ export default {
       oneOf: 'Пароли должны совпадать',
 
     },
-
     toasts: {
       error: {
         connectionError: 'Ошибка соединения',

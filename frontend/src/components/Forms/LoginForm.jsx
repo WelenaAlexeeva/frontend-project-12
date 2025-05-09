@@ -5,6 +5,8 @@ import { Form, FloatingLabel, Button, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 import AuthContext from '../../context/AuthContext';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify'
+
 
 
 function LoginForm() {
@@ -36,6 +38,7 @@ function LoginForm() {
         .catch((error) => {
           setAuthError(true);
           if (error.isAxiosError && error.response.status === 401) {
+            toast.error(t('toasts.error.authError'))
             console.log('error 401!');
             inputRef.current.select();
           }

@@ -4,12 +4,12 @@ import { Button, Container, Row, Spinner, Form, InputGroup } from 'react-bootstr
 import { useDispatch } from 'react-redux';
 import { setActiveChannel } from '../../store/slices/activeChannelSlice';
 import { closeModal } from '../../store/slices/modalSlice';
-import { toast } from 'react-toastify';
 import filter from 'leo-profanity';
 import { useGetChannelsQuery } from '../../services/chatApi';
 import { useAddChannelMutation } from '../../services/chatApi';
 import { useTranslation } from 'react-i18next';
 import { channelFormValidationSchema } from './validate';
+import { toast } from 'react-toastify';
 
 
 const AddChannelForm = () => {

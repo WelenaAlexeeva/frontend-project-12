@@ -7,11 +7,11 @@ import { closeModal } from '../../store/slices/modalSlice';
 import { channelSelector } from '../../store/slices/modalSlice';
 import { activeChannelSelector } from '../../store/slices/activeChannelSlice';
 import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 import { useGetChannelsQuery } from '../../services/chatApi';
 import { useEditChannelMutation } from '../../services/chatApi';
 import { useTranslation } from 'react-i18next';
 import { channelFormValidationSchema } from './validate';
+import { toast } from 'react-toastify';
 
 const EditChannelForm = () => {
   const inputRef = useRef(null);

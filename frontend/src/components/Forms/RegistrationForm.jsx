@@ -7,6 +7,8 @@ import { useAddNewUserMutation } from '../../services/chatApi.js';
 import AuthContext from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next';
 import { registrationFormValidationSchema } from './validate';
+import { toast } from 'react-toastify'
+
 
 
 const RegistrationForm = () => {
@@ -36,6 +38,7 @@ const RegistrationForm = () => {
       try {
         const response = await addNewUser({ username: login, password: password });
         if (response?.error?.status === 409) {
+          toast.error(t('toasts.error.commonError'))
           setIsError(true);
           return;
         };
@@ -48,9 +51,11 @@ const RegistrationForm = () => {
         setIsError(false);
         if (error.isAxiosError && error.response.status === 401) {
           console.log('error 401!');
+          toast.error(t('toasts.error.authError'))
           inputRef.current.select();
         }
         else {
+          toast.error(t('toasts.error.commonError'))
           throw error;
         }
       }
