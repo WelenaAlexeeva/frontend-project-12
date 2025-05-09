@@ -6,10 +6,12 @@ import { Container, Row, Col, Navbar, Button, Nav } from 'react-bootstrap';
 import Channels from '../components/Channels';
 import { useSelector } from 'react-redux';
 import { activeChannelSelector } from '../store/slices/activeChannelSlice';
-import MessageForm from '../components/MessageForm';
+import MessageForm from '../components/Forms/MessageForm.jsx';
 import MessageItem from '../components/MessageItem';
 import selectModal from '../components/Modals/selectModal.js';
 import { typeSelector } from '../store/slices/modalSlice.js';
+import { useTranslation } from 'react-i18next';
+
 
 function HomePage() {
   const navigate = useNavigate();
@@ -18,6 +20,8 @@ function HomePage() {
   const { data: messages, isLoading } = useGetMessagesQuery();
   const currentСhannelMessages = messages?.filter((message) => message.channelId === activeChannel.id);
   const count = currentСhannelMessages ? currentСhannelMessages.length : 0;
+  const { t } = useTranslation();
+  
 
   const logOut = () => {
     auth.logOut();
@@ -42,11 +46,11 @@ function HomePage() {
           {/* Navbar */}
           <Navbar className="shadow-sm navbar-light bg-white">
             <Container>
-              <Navbar.Brand href="/">Hexlet Chat</Navbar.Brand>
+              <Navbar.Brand href="/">{t('nav.navbarBrandText')}</Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ms-auto">
-                  {auth.loggedIn && (<Button variant="primary" onClick={logOut}>Выйти</Button>)}
+                  {auth.loggedIn && (<Button variant="primary" onClick={logOut}>{t('nav.logoutButton')}</Button>)}
                 </Nav>
               </Navbar.Collapse>
             </Container>
@@ -71,9 +75,7 @@ function HomePage() {
                       </b>
                     </p>
                     <span className="text-muted">
-                      { count }
-                      {' '}
-                      сообщений
+                      {t('channelInfo.messages.count', { count: count })}
                     </span>
                   </div>
 

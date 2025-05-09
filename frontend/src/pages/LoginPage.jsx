@@ -1,16 +1,19 @@
-import LoginForm from '../components/LoginForm';
+import LoginForm from '../components/Forms/LoginForm';
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 
 function LoginPage() {
+  const { t } = useTranslation();
   return (
     <Container className="d-flex justify-content-center align-items-center vh-100">
       <Container className="w-100" style={{ maxWidth: '400px' }}>
         <LoginForm />
         <div className="mt-3 text-center">
-          Нет аккаунта? &nbsp;
+          {t('loginPage.textBellowForm')} &nbsp;
           <Link to="/signup" className="home-link">
-            Регистрация
+          {t('nav.registrationPage')}
           </Link>
         </div>
       </Container>

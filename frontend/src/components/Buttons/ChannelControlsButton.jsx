@@ -1,11 +1,10 @@
-import { openModal } from '../store/slices/modalSlice';
+import { openModal } from '../../store/slices/modalSlice';
 import { useDispatch } from 'react-redux';
-import { Dropdown } from 'react-bootstrap';
-// import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 const ChannelControlsButton = ({ channel, activeChannel, handleClick }) => {
   const dispatch = useDispatch();
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
 
   const handleDel = () => {
     dispatch(openModal({ type: 'deleteChannelModal', channel: channel }));
@@ -35,11 +34,11 @@ const ChannelControlsButton = ({ channel, activeChannel, handleClick }) => {
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          <span className="visually-hidden">Управление каналом</span>
+          <span className="visually-hidden">{t('channelControls.hint')}</span>
         </button>
         <ul className="dropdown-menu" aria-labelledby="channelMenuButton">
-          <li><a className="dropdown-item" href="#" onClick={() => { handleDel(); }}>Удалить</a></li>
-          <li><a className="dropdown-item" href="#" onClick={() => { handleEdit(); }}>Переименовать</a></li>
+          <li><a className="dropdown-item" href="#" onClick={() => { handleEdit(); }}>{t('channelControls.rename')}</a></li>
+          <li><a className="dropdown-item" href="#" onClick={() => { handleDel(); }}>{t('channelControls.delete')}</a></li>
         </ul>
       </div>
     );

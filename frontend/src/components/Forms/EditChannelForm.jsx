@@ -2,15 +2,16 @@ import { useRef, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Button, Container, Row, Spinner, Form, InputGroup } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { setActiveChannel } from '../store/slices/activeChannelSlice';
-import { closeModal } from '../store/slices/modalSlice';
-import { channelSelector } from '../store/slices/modalSlice';
-import { activeChannelSelector } from '../store/slices/activeChannelSlice';
+import { setActiveChannel } from '../../store/slices/activeChannelSlice';
+import { closeModal } from '../../store/slices/modalSlice';
+import { channelSelector } from '../../store/slices/modalSlice';
+import { activeChannelSelector } from '../../store/slices/activeChannelSlice';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { useGetChannelsQuery } from '../services/chatApi';
-import { useEditChannelMutation } from '../services/chatApi';
-import * as Yup from 'yup';
+import { useGetChannelsQuery } from '../../services/chatApi';
+import { useEditChannelMutation } from '../../services/chatApi';
+import { useTranslation } from 'react-i18next';
+import { channelFormValidationSchema } from './validate';
 
 const EditChannelForm = () => {
   const inputRef = useRef(null);
@@ -20,16 +21,8 @@ const EditChannelForm = () => {
   const { data: channels } = useGetChannelsQuery();
   const channelsNames = channels.map((item) => item.name);
   const dispatch = useDispatch();
-
-  const validationSchema = Yup.object({
-    channelName: Yup
-      .string()
-      .required('Обязательное поле')
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов')
-      .trim()
-      .notOneOf(channelsNames, 'Имя должно быть уникальным'),
-  });
+  const { t } = useTranslation();
+  const validationSchema = channelFormValidationSchema(channelsNames, t);
 
   useEffect(() => {
     inputRef.current.value = currentChannel.name;
@@ -54,10 +47,10 @@ const EditChannelForm = () => {
           dispatch(setActiveChannel(editedСhannel));
         }
         dispatch(closeModal());
-        toast.success('Канал переименован');
+        toast.success(t('toasts.success.channel.rename'))
       }
       catch (error) {
-        toast.error('Ошибка');
+        toast.error(t('toasts.error.commonError'))
         console.log(error);
       }
     },
@@ -68,7 +61,7 @@ const EditChannelForm = () => {
       <Form onSubmit={formik.handleSubmit}>
         <Row className="mb-3">
           <Form.Group>
-            <Form.Label className="visually-hidden" htmlFor="channelName">Имя канала</Form.Label>
+            <Form.Label className="visually-hidden" htmlFor="channelName">{t('channelForm.channelName')}</Form.Label>
             <InputGroup>
               <Form.Control
                 ref={inputRef}
@@ -91,14 +84,14 @@ const EditChannelForm = () => {
               className="btn-secondary"
               onClick={() => { dispatch(closeModal()); }}
             >
-              Отменить
+              {t('channelForm.cancelBtn')}
             </Button>
             <Button
               variant="primary"
               type="submit"
               disabled={formik.isSubmitting}
             >
-              {formik.isSubmitting ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : 'Отправить'}
+              {formik.isSubmitting ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : t('channelForm.submitBtn')}
             </Button>
           </Form.Group>
         </Row>

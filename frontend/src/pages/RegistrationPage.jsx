@@ -1,4 +1,4 @@
-import RegistrationForm from '../components/RegistrationForm';
+import RegistrationForm from '../components/Forms/RegistrationForm';
 import { Container } from 'react-bootstrap';
 
 function RegistrationPage() {

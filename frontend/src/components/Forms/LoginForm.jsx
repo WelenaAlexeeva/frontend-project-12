@@ -3,13 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { Form, FloatingLabel, Button, Spinner } from 'react-bootstrap';
 import axios from 'axios';
-import AuthContext from '../context/AuthContext';
+import AuthContext from '../../context/AuthContext';
+import { useTranslation } from 'react-i18next';
+
 
 function LoginForm() {
   const [authError, setAuthError] = useState(false);
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
+  const { t } = useTranslation();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -49,11 +52,11 @@ function LoginForm() {
   return (
     <>
       <Form onSubmit={formik.handleSubmit}>
-        <h2 className="text-center mb-4">Войти</h2>
+        <h2 className="text-center mb-4">{t('loginForm.title')}</h2>
 
         <FloatingLabel
           controlId="login"
-          label="Ваш ник"
+          label={t('loginForm.login')}
           className="mb-3"
         >
           <Form.Control
@@ -68,7 +71,7 @@ function LoginForm() {
 
         <FloatingLabel
           controlId="password"
-          label="Пароль"
+          label={t('loginForm.password')}
           className="mb-3"
         >
           <Form.Control
@@ -80,7 +83,7 @@ function LoginForm() {
           />
 
           <div className="invalid-tooltip">
-            {authError ? 'Неверные имя пользователя или пароль' : '\u00A0'}
+            {authError ? t('loginForm.errors.illegalPassOrLogin') : '\u00A0'}
           </div>
 
         </FloatingLabel>
@@ -91,7 +94,7 @@ function LoginForm() {
           disabled={formik.isSubmitting}
           className="w-100"
         >
-          {formik.isSubmitting ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : 'Войти'}
+          {formik.isSubmitting ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : t('loginForm.submitButton')}
         </Button>
       </Form>
     </>

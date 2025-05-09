@@ -8,12 +8,16 @@ import { setActiveChannel } from '../../store/slices/activeChannelSlice';
 import { activeChannelSelector } from '../../store/slices/activeChannelSlice';
 import { defaultChannel } from '../../store/slices/activeChannelSlice';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
+
 
 const DeleteChannelModal = () => {
   const dispatch = useDispatch();
   const currentChannel = useSelector(channelSelector);
   const activeChannel = useSelector(activeChannelSelector);
   const [removeChannel] = useRemoveChannelMutation();
+  const { t } = useTranslation();
+
 
   const handleСancel = () => {
     dispatch(closeModal());
@@ -25,15 +29,15 @@ const DeleteChannelModal = () => {
     }
     await removeChannel(currentChannel);
     dispatch(closeModal());
-    toast.success('Канал удалён');
+    toast.success(t('toasts.success.delete'));
   };
 
   return (
-    <ModalLayout title="Удалить канал">
-      <p className="lead">Уверены?</p>
+    <ModalLayout title={t('deleteChannelModal.title')}>
+      <p className="lead">{t('deleteChannelModal.text')}</p>
       <div className="d-flex justify-content-end gap-2">
-        <Button className="btn-secondary" onClick={handleСancel}>Отменить</Button>
-        <Button className="btn-danger" onClick={handleDelChannel}>Удалить</Button>
+        <Button className="btn-secondary" onClick={handleСancel}>{t('deleteChannelModal.cancelButton')}</Button>
+        <Button className="btn-danger" onClick={handleDelChannel}>{t('deleteChannelModal.deleteButton')}</Button>
       </div>
     </ModalLayout>
   );

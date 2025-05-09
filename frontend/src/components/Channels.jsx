@@ -1,8 +1,8 @@
 import { Col } from 'react-bootstrap';
 import { useGetChannelsQuery } from '../services/chatApi';
 import { useSelector, useDispatch } from 'react-redux';
-import AddChannelButton from './AddChannelButton';
-import ChannelControlsButton from './ChannelControlsButton.jsx';
+import AddChannelButton from './Buttons/AddChannelButton.jsx';
+import ChannelControlsButton from './Buttons/ChannelControlsButton.jsx';
 import { setActiveChannel, activeChannelSelector } from '../store/slices/activeChannelSlice.js';
 import { openModal } from '../store/slices/modalSlice.js';
 

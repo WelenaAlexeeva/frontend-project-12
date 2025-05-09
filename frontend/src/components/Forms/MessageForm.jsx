@@ -1,13 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 import { Form, InputGroup, FormControl } from 'react-bootstrap';
-import SendMessageButton from './SendMessageButton';
+import SendMessageButton from '../Buttons/SendMessageButton';
 import { useFormik } from 'formik';
-import { useAddMessageMutation } from '../services/chatApi';
+import { useAddMessageMutation } from '../../services/chatApi';
 import filter from 'leo-profanity';
+import { useTranslation } from 'react-i18next';
+
 
 const MessagesForm = ({ channelId }) => {
   const [addMessage] = useAddMessageMutation();
   const messageFormField = useRef(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     messageFormField.current.focus();
@@ -29,7 +32,7 @@ const MessagesForm = ({ channelId }) => {
         messageFormField.current.focus();
       }
       catch (error) {
-        console.error('Ошибка при отправке сообщения:', error);
+        console.error(t('messageForm.error'), error);
       }
     },
   });
@@ -43,8 +46,8 @@ const MessagesForm = ({ channelId }) => {
           id="message"
           onChange={formik.handleChange}
           value={formik.values.message}
-          aria-label="Новое сообщение"
-          placeholder="Введите сообщение..."
+          aria-label={t('messageForm.ariaLabel')}
+          placeholder={t('messageForm.placeholder')}
           className="border-0 p-0 ps-2"
           autoComplete="off"
         />

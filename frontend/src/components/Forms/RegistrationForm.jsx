@@ -1,11 +1,13 @@
 import { useRef, useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Spinner, Form, FloatingLabel, Button } from 'react-bootstrap';
-
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useAddNewUserMutation } from '../services/chatApi.js';
-import AuthContext from '../context/AuthContext.jsx';
+import { useAddNewUserMutation } from '../../services/chatApi.js';
+import AuthContext from '../../context/AuthContext.jsx';
+import { useTranslation } from 'react-i18next';
+import { registrationFormValidationSchema } from './validate';
+
 
 const RegistrationForm = () => {
   const inputRef = useRef(null);
@@ -13,24 +15,9 @@ const RegistrationForm = () => {
   const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
-
-  const validationSchema = Yup.object({
-    login: Yup
-      .string()
-      .required('Обязательное поле')
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов')
-      .trim(),
-    password: Yup
-      .string()
-      .min(6, 'От 6 до 20 символов')
-      .required('Обязательное поле'),
-    confirmPassword: Yup
-      .string()
-      .oneOf([Yup.ref('password')], 'Пароли должны совпадать')
-      .required('Обязательное поле'),
-  });
-
+  const { t } = useTranslation();
+  const validationSchema = registrationFormValidationSchema(t);
+  
   useEffect(() => {
     inputRef.current.focus();
   }, []);
@@ -73,11 +60,11 @@ const RegistrationForm = () => {
   return (
     <>
       <Form onSubmit={formik.handleSubmit}>
-        <h2 className="text-center mb-4">Регистрация</h2>
+        <h2 className="text-center mb-4">{t('registrationForm.title')}</h2>
 
         <FloatingLabel
           controlId="login"
-          label="Имя пользователя"
+          label={t('registrationForm.login')}
           className="mb-3"
         >
           <Form.Control
@@ -97,7 +84,7 @@ const RegistrationForm = () => {
 
         <FloatingLabel
           controlId="password"
-          label="Пароль"
+          label={t('registrationForm.password')}
           className="mb-3"
         >
           <Form.Control
@@ -117,7 +104,7 @@ const RegistrationForm = () => {
 
         <FloatingLabel
           controlId="confirmPassword"
-          label="Подтвердите пароль"
+          label={t('registrationForm.confirmPassword')}
           className="mb-3"
         >
           <Form.Control
@@ -135,7 +122,7 @@ const RegistrationForm = () => {
           </div>
         </FloatingLabel>
 
-        <p className="text-danger">{isError ? 'Такой пользователь уже существует' : ''}</p>
+        <p className="text-danger">{isError ? t('registrationForm.errors.exists') : ''}</p>
 
         <Button
           variant="primary"
@@ -143,7 +130,7 @@ const RegistrationForm = () => {
           disabled={formik.isSubmitting}
           className="w-100"
         >
-          {formik.isSubmitting ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : 'Зарегистрироваться'}
+          {formik.isSubmitting ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : t('registrationForm.submitButton')}
         </Button>
 
       </Form>
