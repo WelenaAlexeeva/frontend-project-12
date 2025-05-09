@@ -5,6 +5,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AuthProvider from './context/AuthProvider';
 import { ToastContainer } from 'react-toastify'
+import routes from './routes';
 
 // import './App.css';
 
@@ -14,9 +15,9 @@ function App() {
       <ToastContainer />
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<RegistrationPage />} />
+          <Route path={routes.homePagePath} element={<HomePage />} />
+          <Route path={routes.loginPagePath} element={<LoginPage />} />
+          <Route path={routes.registrationPagePath} element={<RegistrationPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </AuthProvider>

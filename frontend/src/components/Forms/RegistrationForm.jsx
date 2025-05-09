@@ -8,6 +8,7 @@ import AuthContext from '../../context/AuthContext.jsx';
 import { useTranslation } from 'react-i18next';
 import { registrationFormValidationSchema } from './validate';
 import { toast } from 'react-toastify'
+import routes from '../../routes.js';
 
 
 
@@ -45,7 +46,7 @@ const RegistrationForm = () => {
         const { token, username } = response.data;
         auth.logIn(token, username);
         setIsError(false);
-        navigate('/');
+        navigate(routes.homePagePath);
       }
       catch (error) {
         setIsError(false);

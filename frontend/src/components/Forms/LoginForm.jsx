@@ -5,7 +5,8 @@ import { Form, FloatingLabel, Button, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 import AuthContext from '../../context/AuthContext';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
+import routes from '../../routes';
 
 
 
@@ -24,7 +25,7 @@ function LoginForm() {
     initialValues: { login: '', password: '' },
     onSubmit: (values) => {
       const { login, password } = values;
-      axios.post('/api/v1/login', {
+      axios.post(routes.apiLogin, {
         username: login,
         password: password,
       })

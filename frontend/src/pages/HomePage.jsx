@@ -11,6 +11,7 @@ import MessageItem from '../components/MessageItem';
 import selectModal from '../components/Modals/selectModal.js';
 import { typeSelector } from '../store/slices/modalSlice.js';
 import { useTranslation } from 'react-i18next';
+import routes from '../routes.js';
 
 
 function HomePage() {
@@ -25,7 +26,7 @@ function HomePage() {
 
   const logOut = () => {
     auth.logOut();
-    navigate('/login');
+    navigate(routes.loginPagePath);
   };
 
   const token = localStorage.getItem('jwtToken');
@@ -34,7 +35,7 @@ function HomePage() {
 
   useEffect(() => {
     if (!token) {
-      navigate('/login', { replace: true });
+      navigate(routes.loginPagePath, { replace: true });
       return;
     }
   }, [token, navigate]);
@@ -46,7 +47,7 @@ function HomePage() {
           {/* Navbar */}
           <Navbar className="shadow-sm navbar-light bg-white">
             <Container>
-              <Navbar.Brand href="/">{t('nav.navbarBrandText')}</Navbar.Brand>
+              <Navbar.Brand href={routes.homePagePath}>{t('nav.navbarBrandText')}</Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ms-auto">

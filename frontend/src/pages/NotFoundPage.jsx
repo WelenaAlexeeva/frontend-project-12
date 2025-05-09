@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import routes from '../routes';
 
 function NotFoundPage() {
   const { t } = useTranslation();
@@ -9,7 +10,7 @@ function NotFoundPage() {
       <Container className="w-100 text-center" style={{ maxWidth: '600px' }}>
         <h1>{t('notFound.title')}</h1>
         <p>{t('notFound.body')}</p>
-        <Link to="/" className="home-link">
+        <Link to={routes.homePagePath} className="home-link">
           {t('nav.homePage')}
         </Link>
       </Container>
