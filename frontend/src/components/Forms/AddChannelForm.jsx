@@ -11,7 +11,6 @@ import { useTranslation } from 'react-i18next';
 import { channelFormValidationSchema } from './validate';
 import { toast } from 'react-toastify';
 
-
 const AddChannelForm = () => {
   const inputRef = useRef(null);
   const [addChannel] = useAddChannelMutation();
@@ -20,7 +19,7 @@ const AddChannelForm = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const validationSchema = channelFormValidationSchema(channelsNames, t);
-  
+
   useEffect(() => {
     inputRef.current.focus();
   }, []);
@@ -41,10 +40,10 @@ const AddChannelForm = () => {
         formik.values.channelName = '';
         dispatch(setActiveChannel(newChannel.data));
         dispatch(closeModal());
-        toast.success(t('toasts.success.channel.add'))
+        toast.success(t('toasts.success.channel.add'));
       }
       catch (error) {
-        toast.error(t('toasts.error.commonError'))
+        toast.error(t('toasts.error.commonError'));
         console.log(error);
       }
     },

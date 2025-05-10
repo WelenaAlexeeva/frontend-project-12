@@ -10,14 +10,12 @@ import { defaultChannel } from '../../store/slices/activeChannelSlice';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
-
 const DeleteChannelModal = () => {
   const dispatch = useDispatch();
   const currentChannel = useSelector(channelSelector);
   const activeChannel = useSelector(activeChannelSelector);
   const [removeChannel] = useRemoveChannelMutation();
   const { t } = useTranslation();
-
 
   const handleСancel = () => {
     dispatch(closeModal());
@@ -30,7 +28,6 @@ const DeleteChannelModal = () => {
     await removeChannel(currentChannel);
     dispatch(closeModal());
     toast.success(t('toasts.success.channel.delete'));
-
   };
 
   return (

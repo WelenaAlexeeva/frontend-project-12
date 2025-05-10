@@ -1,1 +1,9 @@
 node_modules
+
+# Playwright
+playwright.config.js
+/tests/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

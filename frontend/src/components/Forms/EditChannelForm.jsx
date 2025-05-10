@@ -47,10 +47,10 @@ const EditChannelForm = () => {
           dispatch(setActiveChannel(editedСhannel));
         }
         dispatch(closeModal());
-        toast.success(t('toasts.success.channel.rename'))
+        toast.success(t('toasts.success.channel.rename'));
       }
       catch (error) {
-        toast.error(t('toasts.error.commonError'))
+        toast.error(t('toasts.error.commonError'));
         console.log(error);
       }
     },

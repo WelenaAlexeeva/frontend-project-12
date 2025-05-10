@@ -1,7 +1,3 @@
-import { exists } from "i18next";
-import AddChannelForm from "../components/Forms/AddChannelForm";
-import LoginPage from "../pages/LoginPage";
-
 export default {
   translation: {
     nav: {
@@ -11,7 +7,7 @@ export default {
       logoutButton: 'Выйти',
     },
     loginPage: {
-      textBellowForm: 'Нет аккаунта?'
+      textBellowForm: 'Нет аккаунта?',
     },
     loginForm: {
       title: 'Войти',
@@ -21,7 +17,7 @@ export default {
       errors: {
         illegalPassOrLogin: 'Неверные имя пользователя или пароль',
       },
-  
+
     },
     registrationForm: {
       title: 'Регистрация',
@@ -31,7 +27,7 @@ export default {
       submitButton: 'Зарегистрироваться',
       errors: {
         exists: 'Такой пользователь уже существует',
-      }
+      },
 
     },
 
@@ -42,7 +38,10 @@ export default {
         count_many: '{{count}} сообщений',
       },
     },
-
+    channelsList: {
+      channels: 'Каналы',
+    },
+    
     channelControls: {
       hint: 'Управление каналом',
       rename: 'Переименовать',
@@ -57,7 +56,7 @@ export default {
         exists: 'Такое имя уже существует!',
       },
     },
-    
+
     addChannelModal: {
       title: 'Добавить канал',
     },
@@ -70,7 +69,6 @@ export default {
       cancelButton: 'Отменить',
       deleteButton: 'Удалить',
     },
-  
 
     messageForm: {
       ariaLabel: 'Новое сообщение',
@@ -78,7 +76,7 @@ export default {
       submitButton: 'Отправить',
       error: 'Ошибка при отправке сообщения',
     },
-    
+
     formValidation: {
       required: 'Обязательное поле',
       min6: 'Не менее 6 символов',
@@ -102,13 +100,10 @@ export default {
         },
       },
     },
-  
-    
-
 
     notFound: {
       title: '404 - Страница не найдена',
-      body: 'Извините, запрашиваемая страница не существует'
+      body: 'Извините, запрашиваемая страница не существует',
     },
   },
 };

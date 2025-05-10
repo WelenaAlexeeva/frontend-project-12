@@ -2,23 +2,23 @@ import { useState, useMemo, useEffect } from 'react';
 import AuthContext from './AuthContext.jsx';
 
 const AuthProvider = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('token'));
+  const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('jwtToken'));
 
   const logIn = (token, username) => {
     console.log('Текущее имя: ', username);
-    localStorage.setItem('token', token);
+    localStorage.setItem('jwtToken', token);
     localStorage.setItem('username', username);
     setLoggedIn(true);
   };
 
   const logOut = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('jwtToken');
     localStorage.removeItem('username');
     setLoggedIn(false);
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('jwtToken');
     if (token) {
       setLoggedIn(true);
     }

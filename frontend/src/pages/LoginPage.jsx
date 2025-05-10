@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import routes from '../routes';
 
-
 function LoginPage() {
   const { t } = useTranslation();
   return (
@@ -12,9 +11,11 @@ function LoginPage() {
       <Container className="w-100" style={{ maxWidth: '400px' }}>
         <LoginForm />
         <div className="mt-3 text-center">
-          {t('loginPage.textBellowForm')} &nbsp;
+          {t('loginPage.textBellowForm')}
+          {' '}
+&nbsp;
           <Link to={routes.registrationPagePath} className="home-link">
-          {t('nav.registrationPage')}
+            {t('nav.registrationPage')}
           </Link>
         </div>
       </Container>

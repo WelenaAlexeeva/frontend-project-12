@@ -4,10 +4,10 @@ import resources from './locales';
 
 i18next.use(initReactI18next).init({
   resources,
-  lng: 'ru', 
+  lng: 'ru',
   fallbackLng: 'ru',
   interpolation: {
-    escapeValue: false, 
+    escapeValue: false,
   },
 });
 

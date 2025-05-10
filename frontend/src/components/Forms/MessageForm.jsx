@@ -6,8 +6,6 @@ import { useAddMessageMutation } from '../../services/chatApi';
 import filter from 'leo-profanity';
 import { useTranslation } from 'react-i18next';
 
-
-
 const MessagesForm = ({ channelId }) => {
   const [addMessage] = useAddMessageMutation();
   const messageFormField = useRef(null);

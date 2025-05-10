@@ -2,7 +2,6 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-
 const SendMessageButton = ({ disabled, onClick }) => {
   const { t } = useTranslation();
   return (

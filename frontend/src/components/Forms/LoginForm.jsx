@@ -8,8 +8,6 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import routes from '../../routes';
 
-
-
 function LoginForm() {
   const [authError, setAuthError] = useState(false);
   const inputRef = useRef(null);
@@ -39,7 +37,7 @@ function LoginForm() {
         .catch((error) => {
           setAuthError(true);
           if (error.isAxiosError && error.response.status === 401) {
-            toast.error(t('toasts.error.authError'))
+            toast.error(t('toasts.error.authError'));
             console.log('error 401!');
             inputRef.current.select();
           }
