@@ -1,4 +1,4 @@
-import { Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap'
 
 const AddChannelButton = ({ onClick }) => (
   <Button variant="link" className="p-0 text-primary" onClick={onClick}>
@@ -14,6 +14,6 @@ const AddChannelButton = ({ onClick }) => (
     </svg>
     <span className="visually-hidden">+</span>
   </Button>
-);
+)
 
-export default AddChannelButton;
+export default AddChannelButton

@@ -1,5 +1,5 @@
-import RegistrationForm from '../components/Forms/RegistrationForm';
-import { Container } from 'react-bootstrap';
+import RegistrationForm from '../components/Forms/RegistrationForm'
+import { Container } from 'react-bootstrap'
 
 function RegistrationPage() {
   return (
@@ -8,7 +8,7 @@ function RegistrationPage() {
         <RegistrationForm />
       </Container>
     </Container>
-  );
+  )
 }
 
-export default RegistrationPage;
+export default RegistrationPage

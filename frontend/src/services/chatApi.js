@@ -1,7 +1,7 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { io } from 'socket.io-client';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { io } from 'socket.io-client'
 
-const socket = io();
+const socket = io()
 
 const addSocketListener = async (
   initSocket,
@@ -11,41 +11,41 @@ const addSocketListener = async (
   cacheEntryRemoved,
 ) => {
   try {
-    await cacheDataLoaded;
-    const handleEvent = (payload) => updateCachedData((draft) => {
+    await cacheDataLoaded
+    const handleEvent = payload => updateCachedData(draft => {
       switch (event) {
         case 'newMessage':
-          draft.push(payload);
-          break;
+          draft.push(payload)
+          break
         default:
-          break;
+          break
       }
-    });
-    initSocket.on(event, handleEvent);
+    })
+    initSocket.on(event, handleEvent)
   }
   catch (err) {
-    console.error(err);
+    console.error(err)
   }
-  await cacheEntryRemoved;
-  initSocket.off(event);
-};
+  await cacheEntryRemoved
+  initSocket.off(event)
+}
 
 export const chatApi = createApi({
   reducerPath: 'chatApi',
   tagTypes: ['Channel', 'Message'],
   baseQuery: fetchBaseQuery({
     baseUrl: '/api/v1',
-    prepareHeaders: (headers) => {
-      const token = localStorage.getItem('jwtToken');
+    prepareHeaders: headers => {
+      const token = localStorage.getItem('jwtToken')
       if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
+        headers.set('Authorization', `Bearer ${token}`)
       }
-      return headers;
+      return headers
     },
   }),
-  endpoints: (builder) => ({
+  endpoints: builder => ({
     addNewUser: builder.mutation({
-      query: (newUser) => ({
+      query: newUser => ({
         url: 'signup',
         method: 'POST',
         body: newUser,
@@ -56,7 +56,7 @@ export const chatApi = createApi({
       providesTags: ['Channel'],
     }),
     addChannel: builder.mutation({
-      query: (newChannel) => ({
+      query: newChannel => ({
         url: 'channels',
         method: 'POST',
         body: newChannel,
@@ -90,12 +90,12 @@ export const chatApi = createApi({
           cacheDataLoaded,
           updateCachedData,
           cacheEntryRemoved,
-        );
+        )
       },
       providesTags: ['Message', 'Channel'],
     }),
     addMessage: builder.mutation({
-      query: (newMessage) => ({
+      query: newMessage => ({
         url: 'messages',
         method: 'POST',
         body: newMessage,
@@ -103,7 +103,7 @@ export const chatApi = createApi({
       invalidatesTags: ['Message'],
     }),
   }),
-});
+})
 
 export const {
   useAddNewUserMutation,
@@ -113,4 +113,4 @@ export const {
   useEditChannelMutation,
   useAddMessageMutation,
   useAddChannelMutation,
-} = chatApi;
+} = chatApi

@@ -1,35 +1,35 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useGetMessagesQuery } from '../services/chatApi';
-import { Container, Row, Col, Navbar, Button, Nav } from 'react-bootstrap';
-import Channels from '../components/Channels';
-import { useSelector } from 'react-redux';
-import { activeChannelSelector } from '../store/slices/activeChannelSlice';
-import MessageForm from '../components/Forms/MessageForm.jsx';
-import MessageItem from '../components/MessageItem';
-import selectModal from '../components/Modals/selectModal.js';
-import { typeSelector } from '../store/slices/modalSlice.js';
-import { useTranslation } from 'react-i18next';
-import routes from '../routes.js';
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useGetMessagesQuery } from '../services/chatApi'
+import { Container, Row, Col, Navbar, Button, Nav } from 'react-bootstrap'
+import Channels from '../components/Channels'
+import { useSelector } from 'react-redux'
+import { activeChannelSelector } from '../store/slices/activeChannelSlice'
+import MessageForm from '../components/Forms/MessageForm.jsx'
+import MessageItem from '../components/MessageItem'
+import selectModal from '../components/Modals/selectModal.js'
+import { typeSelector } from '../store/slices/modalSlice.js'
+import { useTranslation } from 'react-i18next'
+import routes from '../routes.js'
 
 function HomePage() {
-  const navigate = useNavigate();
-  const activeChannel = useSelector(activeChannelSelector);
-  const { data: messages, isLoading } = useGetMessagesQuery();
-  const currentСhannelMessages = messages?.filter((message) => message.channelId === activeChannel.id);
-  const count = currentСhannelMessages ? currentСhannelMessages.length : 0;
-  const { t } = useTranslation();
+  const navigate = useNavigate()
+  const activeChannel = useSelector(activeChannelSelector)
+  const { data: messages, isLoading } = useGetMessagesQuery()
+  const currentСhannelMessages = messages?.filter(message => message.channelId === activeChannel.id)
+  const count = currentСhannelMessages ? currentСhannelMessages.length : 0
+  const { t } = useTranslation()
 
-  const token = localStorage.getItem('jwtToken');
-  const modalType = useSelector(typeSelector);
-  const Modal = selectModal[modalType];
+  const token = localStorage.getItem('jwtToken')
+  const modalType = useSelector(typeSelector)
+  const Modal = selectModal[modalType]
 
   useEffect(() => {
     if (!token) {
-      navigate(routes.loginPagePath, { replace: true });
-      return;
+      navigate(routes.loginPagePath, { replace: true })
+      return
     }
-  }, [token, navigate]);
+  }, [token, navigate])
 
   return (
     <div className="h-100" id="chat">
@@ -60,10 +60,10 @@ function HomePage() {
 
                 {/* Messages */}
                 <div id="messages-box" className="chat-messages overflow-auto px-5 flex-grow-1">
-                  {currentСhannelMessages?.map((message) => {
+                  {currentСhannelMessages?.map(message => {
                     return (
                       <MessageItem key={message.id} username={message.username} message={message.body} />
-                    );
+                    )
                   })}
                 </div>
 
@@ -84,7 +84,7 @@ function HomePage() {
       <div className="Toastify"></div>
       {Modal ? <Modal /> : ''}
     </div>
-  );
+  )
 }
 
-export default HomePage;
+export default HomePage

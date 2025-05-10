@@ -1,4 +1,4 @@
-import * as Yup from 'yup';
+import * as Yup from 'yup'
 
 export const channelFormValidationSchema = (channelsNames, t) => {
   return Yup.object().shape({
@@ -9,10 +9,10 @@ export const channelFormValidationSchema = (channelsNames, t) => {
       .max(20, t('formValidation.max20'))
       .trim()
       .notOneOf(channelsNames, t('formValidation.notOneOf')),
-  });
-};
+  })
+}
 
-export const registrationFormValidationSchema = (t) => {
+export const registrationFormValidationSchema = t => {
   return Yup.object().shape({
     login: Yup
       .string()
@@ -28,5 +28,5 @@ export const registrationFormValidationSchema = (t) => {
       .string()
       .oneOf([Yup.ref('password')], t('formValidation.oneOf'))
       .required(t('formValidation.required')),
-  });
-};
+  })
+}

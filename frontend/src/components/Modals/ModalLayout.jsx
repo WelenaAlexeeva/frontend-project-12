@@ -1,15 +1,15 @@
-import Modal from 'react-bootstrap/Modal';
-import { closeModal, isOpenedSelector } from '../../store/slices/modalSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import Modal from 'react-bootstrap/Modal'
+import { closeModal, isOpenedSelector } from '../../store/slices/modalSlice'
+import { useSelector, useDispatch } from 'react-redux'
 
 const ModalLayout = ({ children, title = 'Модалка', onHide = closeModal }) => {
-  const show = useSelector(isOpenedSelector);
-  const dispatch = useDispatch();
+  const show = useSelector(isOpenedSelector)
+  const dispatch = useDispatch()
 
   return (
     <Modal
       show={show}
-      onHide={() => { dispatch(onHide()); }}
+      onHide={() => { dispatch(onHide()) }}
     >
       <Modal.Header closeButton>
         <Modal.Title>{title}</Modal.Title>
@@ -19,7 +19,7 @@ const ModalLayout = ({ children, title = 'Модалка', onHide = closeModal }
         {children}
       </Modal.Body>
     </Modal>
-  );
-};
+  )
+}
 
-export default ModalLayout;
+export default ModalLayout

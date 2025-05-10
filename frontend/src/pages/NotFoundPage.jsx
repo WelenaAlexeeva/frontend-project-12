@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
-import routes from '../routes';
+import { Link } from 'react-router-dom'
+import { Container } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
+import routes from '../routes'
 
 function NotFoundPage() {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <Container className="d-flex justify-content-center align-items-center vh-100">
       <Container className="w-100 text-center" style={{ maxWidth: '600px' }}>
@@ -15,7 +15,7 @@ function NotFoundPage() {
         </Link>
       </Container>
     </Container>
-  );
+  )
 }
 
-export default NotFoundPage;
+export default NotFoundPage

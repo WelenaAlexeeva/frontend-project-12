@@ -41,7 +41,7 @@ export default {
     channelsList: {
       channels: 'Каналы',
     },
-    
+
     channelControls: {
       hint: 'Управление каналом',
       rename: 'Переименовать',
@@ -106,4 +106,4 @@ export default {
       body: 'Извините, запрашиваемая страница не существует',
     },
   },
-};
+}

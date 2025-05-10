@@ -1,19 +1,19 @@
-import React from 'react';
-import { Container, Navbar, Nav, Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import AuthContext from '../context/AuthContext';
-import routes from '../routes';
+import React from 'react'
+import { Container, Navbar, Nav, Button } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import AuthContext from '../context/AuthContext'
+import routes from '../routes'
 
 const NavbarComponent = () => {
-  const navigate = useNavigate();
-  const auth = React.useContext(AuthContext);
-  const { t } = useTranslation();
+  const navigate = useNavigate()
+  const auth = React.useContext(AuthContext)
+  const { t } = useTranslation()
 
   const logOut = () => {
-    auth.logOut();
-    navigate(routes.loginPagePath);
-  };
+    auth.logOut()
+    navigate(routes.loginPagePath)
+  }
 
   return (
     <Navbar className="shadow-sm navbar-light bg-white">
@@ -33,7 +33,7 @@ const NavbarComponent = () => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  );
-};
+  )
+}
 
-export default NavbarComponent;
+export default NavbarComponent

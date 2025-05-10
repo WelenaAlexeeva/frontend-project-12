@@ -1,55 +1,55 @@
-import { useState, useRef, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useFormik } from 'formik';
-import { Form, FloatingLabel, Button, Spinner } from 'react-bootstrap';
-import axios from 'axios';
-import AuthContext from '../../context/AuthContext';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
-import routes from '../../routes';
+import { useState, useRef, useEffect, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useFormik } from 'formik'
+import { Form, FloatingLabel, Button, Spinner } from 'react-bootstrap'
+import axios from 'axios'
+import AuthContext from '../../context/AuthContext'
+import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
+import routes from '../../routes'
 
 function LoginForm() {
-  const [authError, setAuthError] = useState(false);
-  const inputRef = useRef(null);
-  const navigate = useNavigate();
-  const auth = useContext(AuthContext);
-  const { t } = useTranslation();
+  const [authError, setAuthError] = useState(false)
+  const inputRef = useRef(null)
+  const navigate = useNavigate()
+  const auth = useContext(AuthContext)
+  const { t } = useTranslation()
 
   useEffect(() => {
-    inputRef.current.focus();
-  }, []);
+    inputRef.current.focus()
+  }, [])
 
   const formik = useFormik({
     initialValues: { login: '', password: '' },
-    onSubmit: (values) => {
-      const { login, password } = values;
+    onSubmit: values => {
+      const { login, password } = values
       axios.post(routes.apiLogin, {
         username: login,
         password: password,
       })
-        .then((response) => {
-          const { token: jwtToken, username: login } = response.data;
-          localStorage.setItem('jwtToken', jwtToken);
-          localStorage.setItem('username', login);
-          auth.logIn(jwtToken, login);
-          navigate('/');
+        .then(response => {
+          const { token: jwtToken, username: login } = response.data
+          localStorage.setItem('jwtToken', jwtToken)
+          localStorage.setItem('username', login)
+          auth.logIn(jwtToken, login)
+          navigate('/')
         })
-        .catch((error) => {
-          setAuthError(true);
+        .catch(error => {
+          setAuthError(true)
           if (error.isAxiosError && error.response.status === 401) {
-            toast.error(t('toasts.error.authError'));
-            console.log('error 401!');
-            inputRef.current.select();
+            toast.error(t('toasts.error.authError'))
+            console.log('error 401!')
+            inputRef.current.select()
           }
           else {
-            throw error;
+            throw error
           }
         })
         .finally(() => {
-          formik.setSubmitting(false);
-        });
+          formik.setSubmitting(false)
+        })
     },
-  });
+  })
 
   return (
     <>
@@ -100,7 +100,7 @@ function LoginForm() {
         </Button>
       </Form>
     </>
-  );
+  )
 }
 
-export default LoginForm;
+export default LoginForm

@@ -1,27 +1,27 @@
-import { useRef, useEffect, useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Spinner, Form, FloatingLabel, Button } from 'react-bootstrap';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
-import { useAddNewUserMutation } from '../../services/chatApi.js';
-import AuthContext from '../../context/AuthContext.jsx';
-import { useTranslation } from 'react-i18next';
-import { registrationFormValidationSchema } from './validate';
-import { toast } from 'react-toastify';
-import routes from '../../routes.js';
+import { useRef, useEffect, useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Spinner, Form, FloatingLabel, Button } from 'react-bootstrap'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import { useAddNewUserMutation } from '../../services/chatApi.js'
+import AuthContext from '../../context/AuthContext.jsx'
+import { useTranslation } from 'react-i18next'
+import { registrationFormValidationSchema } from './validate'
+import { toast } from 'react-toastify'
+import routes from '../../routes.js'
 
 const RegistrationForm = () => {
-  const inputRef = useRef(null);
-  const [addNewUser] = useAddNewUserMutation();
-  const [isError, setIsError] = useState(false);
-  const navigate = useNavigate();
-  const auth = useContext(AuthContext);
-  const { t } = useTranslation();
-  const validationSchema = registrationFormValidationSchema(t);
+  const inputRef = useRef(null)
+  const [addNewUser] = useAddNewUserMutation()
+  const [isError, setIsError] = useState(false)
+  const navigate = useNavigate()
+  const auth = useContext(AuthContext)
+  const { t } = useTranslation()
+  const validationSchema = registrationFormValidationSchema(t)
 
   useEffect(() => {
-    inputRef.current.focus();
-  }, []);
+    inputRef.current.focus()
+  }, [])
 
   const formik = useFormik({
     validationSchema: validationSchema,
@@ -32,34 +32,34 @@ const RegistrationForm = () => {
       password: '',
       confirmPassword: '',
     },
-    onSubmit: async (values) => {
-      const { login, password } = values;
+    onSubmit: async values => {
+      const { login, password } = values
       try {
-        const response = await addNewUser({ username: login, password: password });
+        const response = await addNewUser({ username: login, password: password })
         if (response?.error?.status === 409) {
-          toast.error(t('toasts.error.commonError'));
-          setIsError(true);
-          return;
+          toast.error(t('toasts.error.commonError'))
+          setIsError(true)
+          return
         };
-        const { token, username } = response.data;
-        auth.logIn(token, username);
-        setIsError(false);
-        navigate(routes.homePagePath);
+        const { token, username } = response.data
+        auth.logIn(token, username)
+        setIsError(false)
+        navigate(routes.homePagePath)
       }
       catch (error) {
-        setIsError(false);
+        setIsError(false)
         if (error.isAxiosError && error.response.status === 401) {
-          console.log('error 401!');
-          toast.error(t('toasts.error.authError'));
-          inputRef.current.select();
+          console.log('error 401!')
+          toast.error(t('toasts.error.authError'))
+          inputRef.current.select()
         }
         else {
-          toast.error(t('toasts.error.commonError'));
-          throw error;
+          toast.error(t('toasts.error.commonError'))
+          throw error
         }
       }
     },
-  });
+  })
 
   return (
     <>
@@ -139,7 +139,7 @@ const RegistrationForm = () => {
 
       </Form>
     </>
-  );
-};
+  )
+}
 
-export default RegistrationForm;
+export default RegistrationForm

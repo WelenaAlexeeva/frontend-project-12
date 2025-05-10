@@ -1,26 +1,25 @@
-import { Col } from 'react-bootstrap';
-import { useGetChannelsQuery } from '../services/chatApi';
-import { useSelector, useDispatch } from 'react-redux';
+import { Col } from 'react-bootstrap'
+import { useGetChannelsQuery } from '../services/chatApi'
+import { useSelector, useDispatch } from 'react-redux'
 // import AddChannelButton from './Buttons/AddChannelButton.jsx';
-import ChannelControlsButton from './Buttons/ChannelControlsButton.jsx';
-import { setActiveChannel, activeChannelSelector } from '../store/slices/activeChannelSlice.js';
-import { openModal } from '../store/slices/modalSlice.js';
+import ChannelControlsButton from './Buttons/ChannelControlsButton.jsx'
+import { setActiveChannel, activeChannelSelector } from '../store/slices/activeChannelSlice.js'
+import { openModal } from '../store/slices/modalSlice.js'
 import { useTranslation } from 'react-i18next'
 
-
 const Channels = () => {
-  const { data: channels } = useGetChannelsQuery();
-  const activeChannel = useSelector(activeChannelSelector);
-  const dispatch = useDispatch();
+  const { data: channels } = useGetChannelsQuery()
+  const activeChannel = useSelector(activeChannelSelector)
+  const dispatch = useDispatch()
   const { t } = useTranslation()
 
   const handleOpenModal = () => {
-    dispatch(openModal({ type: 'addChannelModal' }));
-  };
+    dispatch(openModal({ type: 'addChannelModal' }))
+  }
 
-  const handleClick = (channel) => {
-    dispatch(setActiveChannel(channel));
-  };
+  const handleClick = channel => {
+    dispatch(setActiveChannel(channel))
+  }
 
   return (
     <Col xs={12} md={2} className="border-end px-0 bg-light d-flex flex-column h-100">
@@ -33,16 +32,16 @@ const Channels = () => {
 
       {/* Channels */}
       <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
-        {channels?.map((channel) => {
+        {channels?.map(channel => {
           return (
             <li className="nav-item w-100" key={channel.id}>
               <ChannelControlsButton channel={channel} activeChannel={activeChannel} handleClick={handleClick} />
             </li>
-          );
+          )
         })}
       </ul>
     </Col>
-  );
-};
+  )
+}
 
-export default Channels;
+export default Channels

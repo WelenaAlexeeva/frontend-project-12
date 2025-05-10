@@ -1,12 +1,12 @@
-import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import RegistrationPage from './pages/RegistrationPage';
-import NotFoundPage from './pages/NotFoundPage';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import AuthProvider from './context/AuthProvider';
-import { ToastContainer } from 'react-toastify';
-import routes from './routes';
-import MainMenu from './components/MainMenu';
+import HomePage from './pages/HomePage'
+import LoginPage from './pages/LoginPage'
+import RegistrationPage from './pages/RegistrationPage'
+import NotFoundPage from './pages/NotFoundPage'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import AuthProvider from './context/AuthProvider'
+import { ToastContainer } from 'react-toastify'
+import routes from './routes'
+import MainMenu from './components/MainMenu'
 
 // import './App.css';
 
@@ -26,7 +26,7 @@ function App() {
         </AuthProvider>
       </BrowserRouter>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -1,9 +1,9 @@
-import React from 'react';
-import { Button } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
+import React from 'react'
+import { Button } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
 
 const SendMessageButton = ({ disabled, onClick }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   return (
     <Button type="submit" disabled={disabled} variant="light" onClick={onClick}>
       <svg
@@ -17,7 +17,7 @@ const SendMessageButton = ({ disabled, onClick }) => {
       </svg>
       <span className="visually-hidden">{t('messageForm.submitButton')}</span>
     </Button>
-  );
-};
+  )
+}
 
-export default SendMessageButton;
+export default SendMessageButton

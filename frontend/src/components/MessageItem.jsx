@@ -1,6 +1,6 @@
-const MessageItem = (props) => {
-  const username = props.username;
-  const message = props.message;
+const MessageItem = props => {
+  const username = props.username
+  const message = props.message
   return (
     <div className="text-break mb-2">
       <b>{username}</b>
@@ -8,7 +8,7 @@ const MessageItem = (props) => {
       :
       {message}
     </div>
-  );
-};
+  )
+}
 
-export default MessageItem;
+export default MessageItem
