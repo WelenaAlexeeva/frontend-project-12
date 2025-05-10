@@ -12,7 +12,7 @@ const addSocketListener = async (
 ) => {
   try {
     await cacheDataLoaded
-    const handleEvent = payload => updateCachedData(draft => {
+    const handleEvent = payload => updateCachedData((draft) => {
       switch (event) {
         case 'newMessage':
           draft.push(payload)
@@ -35,7 +35,7 @@ export const chatApi = createApi({
   tagTypes: ['Channel', 'Message'],
   baseQuery: fetchBaseQuery({
     baseUrl: '/api/v1',
-    prepareHeaders: headers => {
+    prepareHeaders: (headers) => {
       const token = localStorage.getItem('jwtToken')
       if (token) {
         headers.set('Authorization', `Bearer ${token}`)

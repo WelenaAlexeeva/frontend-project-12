@@ -1,4 +1,4 @@
-const MessageItem = props => {
+const MessageItem = (props) => {
   const username = props.username
   const message = props.message
   return (

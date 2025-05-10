@@ -2,7 +2,6 @@ import { useRef, useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Spinner, Form, FloatingLabel, Button } from 'react-bootstrap'
 import { useFormik } from 'formik'
-import * as Yup from 'yup'
 import { useAddNewUserMutation } from '../../services/chatApi.js'
 import AuthContext from '../../context/AuthContext.jsx'
 import { useTranslation } from 'react-i18next'
@@ -32,7 +31,7 @@ const RegistrationForm = () => {
       password: '',
       confirmPassword: '',
     },
-    onSubmit: async values => {
+    onSubmit: async (values) => {
       const { login, password } = values
       try {
         const response = await addNewUser({ username: login, password: password })

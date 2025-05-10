@@ -13,7 +13,7 @@ const authSlice = createSlice({
       state.user = action.payload.user
       state.token = action.payload.token
     },
-    clearCredentials: state => {
+    clearCredentials: (state) => {
       state.user = null
       state.token = null
     },

@@ -21,20 +21,20 @@ function LoginForm() {
 
   const formik = useFormik({
     initialValues: { login: '', password: '' },
-    onSubmit: values => {
+    onSubmit: (values) => {
       const { login, password } = values
       axios.post(routes.apiLogin, {
         username: login,
         password: password,
       })
-        .then(response => {
+        .then((response) => {
           const { token: jwtToken, username: login } = response.data
           localStorage.setItem('jwtToken', jwtToken)
           localStorage.setItem('username', login)
           auth.logIn(jwtToken, login)
           navigate('/')
         })
-        .catch(error => {
+        .catch((error) => {
           setAuthError(true)
           if (error.isAxiosError && error.response.status === 401) {
             toast.error(t('toasts.error.authError'))

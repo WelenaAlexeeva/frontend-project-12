@@ -29,7 +29,7 @@ const AddChannelForm = () => {
     initialValues: { channelName: '' },
     validateOnBlur: false,
     validateOnChange: false,
-    onSubmit: async values => {
+    onSubmit: async (values) => {
       const { channelName } = values
       try {
         const newChannelName = filter.clean(channelName.trim())

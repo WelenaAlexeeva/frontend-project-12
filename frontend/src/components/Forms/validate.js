@@ -12,7 +12,7 @@ export const channelFormValidationSchema = (channelsNames, t) => {
   })
 }
 
-export const registrationFormValidationSchema = t => {
+export const registrationFormValidationSchema = (t) => {
   return Yup.object().shape({
     login: Yup
       .string()

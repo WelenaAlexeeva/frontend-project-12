@@ -56,7 +56,7 @@ export default [
       '@stylistic/eol-last': ['error', 'always'],
 
       '@stylistic/arrow-parens': ['error', 'as-needed', {
-        requireForBlockBody: false,
+        requireForBlockBody: true,
       }],
 
       'id-length': ['error', { min: 2, exceptions: ['_', 'i', 'j', 't'] }],

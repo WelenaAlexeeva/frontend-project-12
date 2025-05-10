@@ -60,7 +60,7 @@ function HomePage() {
 
                 {/* Messages */}
                 <div id="messages-box" className="chat-messages overflow-auto px-5 flex-grow-1">
-                  {currentСhannelMessages?.map(message => {
+                  {currentСhannelMessages?.map((message) => {
                     return (
                       <MessageItem key={message.id} username={message.username} message={message.body} />
                     )

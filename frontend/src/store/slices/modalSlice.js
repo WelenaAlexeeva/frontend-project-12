@@ -15,7 +15,7 @@ const modalSlice = createSlice({
       state.channel = action.payload.channel ?? null
       state.isOpened = true
     },
-    closeModal: state => {
+    closeModal: (state) => {
       state.isOpened = false
       state.channel = null
       state.type = null

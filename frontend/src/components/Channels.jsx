@@ -17,7 +17,7 @@ const Channels = () => {
     dispatch(openModal({ type: 'addChannelModal' }))
   }
 
-  const handleClick = channel => {
+  const handleClick = (channel) => {
     dispatch(setActiveChannel(channel))
   }
 
@@ -32,7 +32,7 @@ const Channels = () => {
 
       {/* Channels */}
       <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
-        {channels?.map(channel => {
+        {channels?.map((channel) => {
           return (
             <li className="nav-item w-100" key={channel.id}>
               <ChannelControlsButton channel={channel} activeChannel={activeChannel} handleClick={handleClick} />

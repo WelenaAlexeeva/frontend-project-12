@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Form, InputGroup, FormControl } from 'react-bootstrap'
 import SendMessageButton from '../Buttons/SendMessageButton'
 import { useFormik } from 'formik'
@@ -19,7 +19,7 @@ const MessagesForm = ({ channelId }) => {
     initialValues: {
       message: '',
     },
-    onSubmit: async values => {
+    onSubmit: async (values) => {
       try {
         const body = filter.clean(values.message.trim())
         if (!body || !channelId) return
