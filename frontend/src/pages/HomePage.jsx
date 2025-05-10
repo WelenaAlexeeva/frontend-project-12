@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useGetMessagesQuery } from '../services/chatApi'
-import { Container, Row, Col, Navbar, Button, Nav } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import Channels from '../components/Channels'
 import { useSelector } from 'react-redux'
 import { activeChannelSelector } from '../store/slices/activeChannelSlice'
